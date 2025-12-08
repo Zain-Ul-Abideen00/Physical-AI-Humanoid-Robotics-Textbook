@@ -1,0 +1,11 @@
+.outcomes {
+  padding: 4rem 0;
+  background-color: var(--ifm-color-emphasis-100);
+}
+
+.outcomeIcon {
+  height: 40px;
+  width: 40px;
+  color: var(--ifm-color-success);
+  margin-bottom: 1rem;
+}

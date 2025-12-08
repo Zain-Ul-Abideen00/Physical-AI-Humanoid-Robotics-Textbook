@@ -5,7 +5,14 @@
 **Status**: Draft
 **Input**: User description: "Improve the homepage and expand content across all modules for the Physical AI & Humanoid Robotics Textbook."
 
-## User Scenarios & Testing *(mandatory)*
+## Clarifications
+
+### Session 2025-12-07
+- Q: Should we prioritize replacing static placeholders with Mermaid diagrams immediately, or is a mix acceptable for this phase? → A: Convert all to Mermaid where possible.
+- Q: What kind of image should be used for the Hero section of the homepage? → A: Abstract/conceptual robotics graphic.
+- Q: Should module feature cards use custom SVG icons, FontAwesome icons, or simple text labels? → A: FontAwesome icons.
+- Q: What content elements should be included in the "What's Next?" section at the end of each chapter? → A: Summary of current chapter + link to next chapter.
+- Q: Where should the content for the "Why Physical AI Matters" and "Learning Outcomes" sections on the homepage come from? → A: New dedicated markdown files.
 
 ### User Story 1 - Professional First Impression (Priority: P1)
 
@@ -65,19 +72,19 @@ As a **Student**, I want consistent navigation between modules and clearer cross
 ### Functional Requirements
 
 - **FR-001 (Homepage)**: The homepage MUST be completely redesigned to include:
-    - Hero Section (Headline: "Master Physical AI & Humanoid Robotics")
-    - Module Feature Cards (4 cards)
-    - "Why Physical AI Matters" section
-    - Learning Outcomes section
+    - Hero Section (Headline: "Master Physical AI & Humanoid Robotics", featuring an abstract/conceptual robotics graphic)
+    - Module Feature Cards (4 cards, each with a FontAwesome icon, title, description, and link)
+    - "Why Physical AI Matters" section (content sourced from a dedicated markdown file)
+    - Learning Outcomes section (content sourced from a dedicated markdown file)
     - Hardware Requirements summary
     - Key Features section
 - **FR-002 (Content)**: Every existing chapter MUST be reviewed and expanded to include:
     - Introduction paragraph
     - At least one visual aid (Mermaid diagram or image placeholder) per core concept
     - "Expected Output" for all code blocks
-    - Summary & "What's Next?" footer
+    - Summary & "What's Next?" footer (containing a brief summary of the chapter and a link to the next logical chapter)
 - **FR-003 (Navigation)**: Cross-links MUST be added between related concepts across modules (e.g., ROS 2 <-> Isaac).
-- **FR-004 (Visuals)**: All diagrams MUST use Mermaid.js where possible for maintainability.
+- **FR-004 (Visuals)**: All diagrams MUST use Mermaid.js where possible for maintainability; existing image placeholders should be converted to Mermaid if feasible.
 
 ### Key Entities
 
