@@ -8,19 +8,16 @@ const config: Config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://your-github-username.github.io', // TODO: Update with actual URL
-  baseUrl: '/humanoid-robotics/', // TODO: Update with actual repo name
+  url: 'https://Zain-Ul-Abideen00.github.io',
+  baseUrl: '/Physical-AI-Humanoid-Robotics-Textbook/',
 
-  organizationName: 'your-org', // Usually your GitHub org/user name.
-  projectName: 'humanoid-robotics', // Usually your repo name.
+  organizationName: 'Zain-Ul-Abideen00', // Usually your GitHub org/user name.
+  projectName: 'Physical-AI-Humanoid-Robotics-Textbook', // Usually your repo name.
+  deploymentBranch: 'gh-pages',
+  trailingSlash: false,
 
   onBrokenLinks: 'throw',
-  markdown: {
-  hooks: {
-    onBrokenMarkdownLinks: 'warn',
-  },
-},
-
+  onBrokenMarkdownLinks: 'warn',
 
   i18n: {
     defaultLocale: 'en',
@@ -95,7 +92,7 @@ const config: Config = {
           label: 'Hardware',
         },
         {
-          href: 'https://github.com/your-org/humanoid-robotics',
+          href: 'https://github.com/Zain-Ul-Abideen00/Physical-AI-Humanoid-Robotics-Textbook',
           label: 'GitHub',
           position: 'right',
         },
@@ -115,7 +112,7 @@ const config: Config = {
           title: 'Resources',
           items: [
             { label: 'Hardware Guides', to: '/docs/hardware/intro' },
-            { label: 'GitHub', href: 'https://github.com/your-org/humanoid-robotics' },
+            { label: 'GitHub', href: 'https://github.com/Zain-Ul-Abideen00/Physical-AI-Humanoid-Robotics-Textbook' },
           ],
         },
         {
