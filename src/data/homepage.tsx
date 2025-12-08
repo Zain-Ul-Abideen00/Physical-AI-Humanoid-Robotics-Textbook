@@ -104,7 +104,7 @@ export const HardwareList: HardwareItem[] = [
   {
     title: '3-Robot Lab',
     description: 'Advanced university-style setup with Quadruped (Go2), Manipulator, and Mobile Base.',
-    image: '/img/hardware/3-robot-lab.jpg',
+    image: '/img/hardware/robot-lab.jpg',
     cost: '$$1,800 – $3,000',
   },
 ];
