@@ -19,7 +19,7 @@ export interface HardwareItem {
   title: string;
   description: string;
   image: string;
-  cost: '$' | '$$' | '$$$';
+  cost: string;
 }
 
 export const FeatureList: FeatureItem[] = [
@@ -92,20 +92,20 @@ export const HardwareList: HardwareItem[] = [
   {
     title: 'Cloud "Ether Lab"',
     description: 'Zero-install, browser-based environment. Perfect for getting started immediately.',
-    image: '/img/hardware/placeholder-ether-lab.jpg',
-    cost: '$',
+    image: '/img/hardware/ether-lab.jpg',
+    cost: '$205 per quarter',
   },
   {
     title: 'Economy Jetson Kit',
     description: 'Affordable physical track using NVIDIA Jetson Orin Nano and basic sensors.',
-    image: '/img/hardware/placeholder-jetson-kit.jpg',
-    cost: '$$',
+    image: '/img/hardware/jetson-kit.jpg',
+    cost: '$700',
   },
   {
     title: '3-Robot Lab',
     description: 'Advanced university-style setup with Quadruped (Go2), Manipulator, and Mobile Base.',
-    image: '/img/hardware/placeholder-3-robot-lab.jpg',
-    cost: '$$$',
+    image: '/img/hardware/3-robot-lab.jpg',
+    cost: '$$1,800 – $3,000',
   },
 ];
 
