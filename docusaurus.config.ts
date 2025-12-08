@@ -13,7 +13,7 @@ const config: Config = {
 
   organizationName: 'Zain-Ul-Abideen00', // Usually your GitHub org/user name.
   projectName: 'Physical-AI-Humanoid-Robotics-Textbook', // Usually your repo name.
-  deploymentBranch: 'gh-pages',
+  deploymentBranch: 'master',
   trailingSlash: false,
 
   onBrokenLinks: 'throw',
@@ -21,15 +21,12 @@ const config: Config = {
   hooks: {
     onBrokenMarkdownLinks: 'warn',
   },
+  mermaid: true,
 },
 
   i18n: {
     defaultLocale: 'en',
     locales: ['en'],
-  },
-
-  markdown: {
-    mermaid: true,
   },
 
   themes: ['@docusaurus/theme-mermaid'],
