@@ -63,5 +63,5 @@ description: [SEO Description]
 ### Hardware Card
 - `title`: string
 - `image`: string (path)
-- `costLevel`: '$' | '$$' | '$$$'
+- `costLevel`: string
 - `description`: string
