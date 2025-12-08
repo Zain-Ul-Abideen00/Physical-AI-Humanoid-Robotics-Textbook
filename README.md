@@ -1,41 +1,75 @@
-# Website
+# Physical AI & Humanoid Robotics Textbook
 
-This website is built using [Docusaurus](https://docusaurus.io/), a modern static website generator.
+![Project Banner](static/img/docusaurus-social-card.jpg)
 
-## Installation
+**Focus and Theme**: AI Systems in the Physical World. Embodied Intelligence.  
+**Goal**: Bridging the gap between the digital brain and the physical body.
+
+This is the source repository for the **Physical AI & Humanoid Robotics Textbook**, a comprehensive interactive guide for students and researchers. It covers the full stack of embodied AI, from ROS 2 middleware to NVIDIA Isaac Sim and Vision-Language-Action (VLA) models.
+
+## 📚 Syllabus Overview
+
+The textbook is structured into four core modules and a 13-week curriculum:
+
+*   **Module 1: The Robotic Nervous System (ROS 2)** - Middleware, Nodes, Topics, and URDF.
+*   **Module 2: The Digital Twin (Gazebo & Unity)** - Physics simulation, environment building, and sensor simulation.
+*   **Module 3: The AI-Robot Brain (NVIDIA Isaac)** - Perception, VSLAM, Navigation, and Isaac Sim.
+*   **Module 4: Vision-Language-Action (VLA)** - LLMs in robotics, voice commands (Whisper), and cognitive planning.
+
+## 🛠️ Tech Stack
+
+This website is built using **[Docusaurus 3.9](https://docusaurus.io/)**, a modern static website generator tailored for documentation.
+
+*   **Framework**: React, TypeScript
+*   **Content**: Markdown/MDX
+*   **Diagrams**: Mermaid.js
+*   **Styling**: Infima / CSS Modules
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+*   **Node.js** (v18 or higher)
+*   **npm** (recommended) or yarn
+
+### Installation
+
+Clone the repository and install dependencies:
 
 ```bash
-yarn
+git clone https://github.com/Zain-Ul-Abideen00/Physical-AI-Humanoid-Robotics-Textbook.git
+cd Physical-AI-Humanoid-Robotics-Textbook
+npm install
 ```
 
-## Local Development
+### Local Development
+
+Start the local development server:
 
 ```bash
-yarn start
+npm run start
 ```
 
-This command starts a local development server and opens up a browser window. Most changes are reflected live without having to restart the server.
+This command opens a browser window at `http://localhost:3000`. Most changes are reflected live without restarting the server.
 
-## Build
+### Building for Production
+
+Generate static content into the `build` directory:
 
 ```bash
-yarn build
+npm run build
 ```
 
-This command generates static content into the `build` directory and can be served using any static contents hosting service.
+## 🤝 Contributing
 
-## Deployment
+We welcome contributions! Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
-Using SSH:
+1.  Fork the project.
+2.  Create your feature branch (`git checkout -b feature/AmazingFeature`).
+3.  Commit your changes (`git commit -m 'Add some AmazingFeature'`).
+4.  Push to the branch (`git push origin feature/AmazingFeature`).
+5.  Open a Pull Request.
 
-```bash
-USE_SSH=true yarn deploy
-```
+## 📄 License
 
-Not using SSH:
-
-```bash
-GIT_USER=<Your GitHub username> yarn deploy
-```
-
-If you are using GitHub pages for hosting, this command is a convenient way to build the website and push to the `gh-pages` branch.
+This project is open source and available under the [MIT License](LICENSE).
