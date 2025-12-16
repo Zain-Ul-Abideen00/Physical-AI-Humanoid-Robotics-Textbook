@@ -1,11 +1,3 @@
-<!--
-SYNC IMPACT REPORT
-Version Change: 1.1.0 -> 2.0.0
-Modified Principles: Complete overhaul to support RAG Chatbot & Agentic workflows.
-Added Sections: Technical Architecture, RAG Chatbot Architecture, Agent Guidelines, Context7 Usage.
-Templates Updated: ✅ Templates verified compatible.
-TODOs: None
--->
 # Project Constitution: Docusaurus Book with RAG Chatbot
 
 ## 1. Project Vision & Core Principles
@@ -672,5 +664,3 @@ uv pip list            # List installed packages
 - Neon: https://neon.tech/
 - OpenAI ChatKit: https://platform.openai.com/docs/guides/chatkit
 - Antigravity: https://antigravity.google/
-
-**Version**: 2.0.0 | **Ratified**: 2025-12-07 | **Last Amended**: 2025-12-16
