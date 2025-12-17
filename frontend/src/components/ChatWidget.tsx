@@ -55,7 +55,7 @@ const ChatWidget: React.FC = () => {
     setIsLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8000/api/chat/message', {
+      const response = await fetch('humanoid-robotics.up.railway.app/api/chat/message', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
