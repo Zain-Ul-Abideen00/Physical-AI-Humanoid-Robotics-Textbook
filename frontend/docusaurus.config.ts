@@ -8,8 +8,8 @@ const config: Config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://Zain-Ul-Abideen00.github.io',
-  baseUrl: '/Physical-AI-Humanoid-Robotics-Textbook/',
+  url: 'https://zain-humanoid-robotics.vercel.app',
+  baseUrl: '/',
 
   organizationName: 'Zain-Ul-Abideen00', // Usually your GitHub org/user name.
   projectName: 'Physical-AI-Humanoid-Robotics-Textbook', // Usually your repo name.
