@@ -3,7 +3,7 @@ import json
 import sys
 
 def test_chat_stream(message="What is a servo motor?"):
-    url = "http://localhost:8000/api/chat/message"
+    url = "https://humanoid-robotics.up.railway.app/api/chat/message"
     payload = {
         "message": message,
         "context_limit": 5
