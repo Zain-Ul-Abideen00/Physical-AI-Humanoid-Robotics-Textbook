@@ -2,7 +2,7 @@
 
 ![Project Banner](static/img/docusaurus-social-card.jpg)
 
-**Focus and Theme**: AI Systems in the Physical World. Embodied Intelligence.  
+**Focus and Theme**: AI Systems in the Physical World. Embodied Intelligence.
 **Goal**: Bridging the gap between the digital brain and the physical body.
 
 This is the source repository for the **Physical AI & Humanoid Robotics Textbook**, a comprehensive interactive guide for students and researchers. It covers the full stack of embodied AI, from ROS 2 middleware to NVIDIA Isaac Sim and Vision-Language-Action (VLA) models.
@@ -25,32 +25,49 @@ This website is built using **[Docusaurus 3.9](https://docusaurus.io/)**, a mode
 *   **Diagrams**: Mermaid.js
 *   **Styling**: Infima / CSS Modules
 
-## 🚀 Getting Started
+## Quick Start
 
-### Prerequisites
+### Backend (FastAPI + RAG)
 
-*   **Node.js** (v18 or higher)
-*   **npm** (recommended) or yarn
+1.  Navigate to the backend directory:
+    ```bash
+    cd backend
+    ```
 
-### Installation
+2.  Install dependencies:
+    ```bash
+    uv sync
+    ```
 
-Clone the repository and install dependencies:
+3.  Set up environment variables:
+    ```bash
+    cp .env.example .env
+    # Add your API keys (GEMINI_API_KEY, QDRANT_URL, etc.)
+    ```
 
-```bash
-git clone https://github.com/Zain-Ul-Abideen00/Physical-AI-Humanoid-Robotics-Textbook.git
-cd Physical-AI-Humanoid-Robotics-Textbook
-npm install
-```
+4.  Run the backend server:
+    ```bash
+    uv run uvicorn main:app --reload
+    ```
+    API will be available at [http://localhost:8000](http://localhost:8000).
 
-### Local Development
+### Frontend (Docusaurus)
 
-Start the local development server:
+1.  Navigate to the frontend directory:
+    ```bash
+    cd frontend
+    ```
 
-```bash
-npm run start
-```
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
 
-This command opens a browser window at `http://localhost:3000`. Most changes are reflected live without restarting the server.
+3.  Run the development server:
+    ```bash
+    npm start
+    ```
+    Website will be available at [http://localhost:3000](http://localhost:3000).
 
 ### Building for Production
 
