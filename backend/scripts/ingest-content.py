@@ -2,7 +2,7 @@ import argparse
 import asyncio
 
 from dotenv import load_dotenv
-load_dotenv()
+load_dotenv(override=True)
 
 from services.ingest.manager import IngestionManager
 

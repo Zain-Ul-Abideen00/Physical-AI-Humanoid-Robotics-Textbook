@@ -1,6 +1,7 @@
 import hashlib
 import uuid
-
+from dotenv import load_dotenv
+load_dotenv()
 from services.db import Database
 from services.embeddings.client import CohereClient
 from services.ingest.chunker import chunk_text
