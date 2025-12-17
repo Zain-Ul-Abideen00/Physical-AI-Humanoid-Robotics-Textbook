@@ -1,6 +1,7 @@
 import os
 from typing import Optional
-
+from dotenv import load_dotenv
+load_dotenv()
 import asyncpg
 
 DATABASE_URL = os.getenv("NEON_DATABASE_URL")

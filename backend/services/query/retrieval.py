@@ -1,6 +1,7 @@
 import os
 from typing import List
-
+from dotenv import load_dotenv
+load_dotenv()
 import cohere
 from qdrant_client import QdrantClient
 

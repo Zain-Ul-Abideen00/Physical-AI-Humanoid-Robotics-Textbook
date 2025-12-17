@@ -6,6 +6,7 @@ import sys
 sys.path.append(os.getcwd())
 
 from dotenv import load_dotenv
+load_dotenv(override=True)
 
 from services.query.retrieval import QueryService
 from services.query.models import ValidationQuery
@@ -14,8 +15,6 @@ from agents import Runner
 
 async def debug_rag():
     print("Loading environment...")
-    load_dotenv()
-
     # Check keys
     keys = ["QDRANT_URL", "QDRANT_API_KEY", "COHERE_API_KEY", "GEMINI_API_KEY"]
     missing = [k for k in keys if not os.getenv(k)]
