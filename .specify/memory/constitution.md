@@ -1,8 +1,8 @@
 <!--
 SYNC IMPACT REPORT
-Version Change: 1.1.0 -> 2.0.0
-Modified Principles: Complete overhaul to support RAG Chatbot & Agentic workflows.
-Added Sections: Technical Architecture, RAG Chatbot Architecture, Agent Guidelines, Context7 Usage.
+Version Change: 2.0.0 -> 2.1.0
+Modified Principles: Updated Directory Structure (Flat), Python Version (3.13+), API Protocol (SSE), Agentic RAG.
+Added Sections: LLM Service details.
 Templates Updated: ✅ Templates verified compatible.
 TODOs: None
 -->
@@ -27,36 +27,31 @@ Build a modern, AI-powered educational platform that combines static documentati
 ### 2.1 Monorepo Structure
 ```
 project-root/
-├── apps/
-│   ├── web/                    # Docusaurus frontend
-│   └── api/                    # FastAPI backend
-├── packages/
-│   ├── shared-types/           # TypeScript/Python shared interfaces
-│   ├── ui-components/          # Reusable React components
-│   └── auth-client/            # Better-auth client wrapper
-├── services/
-│   ├── ingest/                 # Content ingestion & embedding
-│   ├── query/                  # RAG query service
-│   ├── embeddings/             # Cohere embedding service
-│   └── vector-store/           # Qdrant client wrapper
-├── docs/
-│   ├── architecture/
-│   ├── api-contracts/
-│   └── deployment/
-├── scripts/
-│   ├── setup-dev.sh
-│   ├── ingest-content.sh       # Manual CLI for content ingestion
-│   ├── sync-vectors.sh         # Auto-detect changes & re-embed
-│   └── migrate-db.sh
-├── .specify/
-├── pyproject.toml              # UV package management
-├── package.json                # Node package management
-└── .gitignore
+├── backend/            # FastAPI backend & services
+│   ├── api/            # API routers (ingest, query, chat)
+│   ├── services/       # Business logic
+│   │   ├── ingest/     # Content processing
+│   │   ├── query/      # Retrieval logic
+│   │   ├── llm/        # Agentic RAG & Gemini client
+│   │   └── vector_store/ # Qdrant wrapper
+│   ├── scripts/        # Utility scripts
+│   ├── pyproject.toml  # UV package management
+│   └── main.py         # Entry point
+├── frontend/           # Docusaurus static site
+│   ├── docs/           # Documentation content
+│   ├── src/            # React components (ChatWidget)
+│   ├── docusaurus.config.ts
+│   └── package.json    # Node package management
+├── specs/              # Spec-driven development artifacts
+├── history/            # Prompt history & ADRs
+├── .specify/           # Agent memory & templates
+├── .env                # Environment variables
+└── README.md
 ```
 
 ### 2.2 Technology Stack Decisions
 
-**Frontend (apps/web/)**
+**Frontend (frontend/)**
 - **Framework**: Docusaurus v3.x (latest stable)
 - **UI Components**: React 18+ with TypeScript
 - **Chat Interface**: OpenAI ChatKit (https://platform.openai.com/docs/guides/chatkit)
@@ -68,13 +63,13 @@ project-root/
 - **State Management**: React Context + hooks (avoid Redux unless necessary)
 - **Styling**: Docusaurus theming + Tailwind CSS for custom components
 
-**Backend (apps/api/)**
-- **Framework**: FastAPI 0.115+ with Python 3.12+
+**Backend (backend/)**
+- **Framework**: FastAPI 0.115+ with Python 3.13+
 - **Package Manager**: UV (NOT pip) - all dependency management through `uv add`, `uv sync`
 - **Database**: Neon Serverless Postgres (connection pooling enabled)
 - **Vector Database**: Qdrant Cloud Free Tier (single collection: "book_content")
 - **Embedding Model**: Cohere `embed-english-light-v3.0` (384 dimensions)
-- **LLM**: Gemini 2.0 Flash (`gemini-2.0-flash`) via Gemini API
+- **LLM**: Gemini 2.0 Flash (`gemini-2.5-flash`) via Gemini API
 - **Authentication**: Better-auth (future phase)
 - **API Documentation**: Auto-generated OpenAPI/Swagger
 - **NO DOCKER**: Direct deployment without containerization
@@ -258,26 +253,26 @@ Payload Schema:
 
 ### 4.1 Core Components (Modular Services)
 
-**Service 1: Ingest Service (services/ingest/)**
+**Service 1: Ingest Service (backend/services/ingest/)**
 - Fetches content from sitemap.xml
 - Applies semantic chunking
 - Generates embeddings (Cohere)
 - Stores in Qdrant + Postgres (content_pages)
 - Detects changes (checksum comparison) for re-ingestion
 
-**Service 2: Query Service (services/query/)**
+**Service 2: Query Service (backend/services/query/)**
 - Handles user questions
 - Performs adaptive retrieval based on query complexity
 - Formats context for Gemini API
 - Returns responses with citations (when possible)
 
-**Service 3: Embedding Service (services/embeddings/)**
+**Service 3: Embedding Service (backend/services/embeddings/)**
 - Wraps Cohere API calls
 - Handles batching (max 96 texts per call)
 - Caches embeddings (avoid redundant API calls)
 - Implements retry logic with exponential backoff
 
-**Service 4: Vector Store Service (services/vector-store/)**
+**Service 4: Vector Store Service (backend/services/vector_store/)**
 - Wraps Qdrant client operations
 - Single collection management ("book_content")
 - Similarity search with adaptive top_k
@@ -364,7 +359,7 @@ def determine_retrieval_params(question: str) -> dict:
   - Persists session across page navigation (localStorage or session storage)
   - "Ask about this" button appears on text selection
 
-**Frontend Implementation** (apps/web/):
+**Frontend Implementation** (frontend/):
 ```typescript
 // src/components/ChatWidget.tsx
 import { ChatKitProvider, ChatWindow } from '@openai/chatkit-react'
@@ -388,7 +383,7 @@ function ChatWidget() {
 
 ### 4.4 API Endpoints (Modular Structure)
 
-**Ingest API** (apps/api/routers/ingest.py)
+**Ingest API** (backend/api/ingest.py)
 ```python
 POST /api/ingest/trigger
 - Admin endpoint to manually trigger content ingestion
@@ -399,21 +394,19 @@ GET /api/ingest/status
 - Returns: {last_run: str, pages_count: int, needs_update: bool}
 ```
 
-**Query API** (apps/api/routers/query.py)
+**Query API** (backend/api/query.py)
 ```python
 POST /api/chat/message
+- Headers: `Accept: text/event-stream`
 - Body: {
     message: str,
     session_id?: str,
-    selected_text?: str,
-    context_limit?: int  # for adaptive retrieval
+    context_limit?: int
   }
-- Returns: {
-    response: str,
-    sources: [...],  # Only if citations found
-    session_id: str,
-    warning?: str    # "Not found in book" message if applicable
-  }
+- Returns: Server-Sent Events (SSE) stream
+  - Event `data`: `{ "type": "sources", "data": [...] }`
+  - Event `data`: `{ "type": "content", "delta": "..." }`
+  - Event `data`: `[DONE]`
 
 GET /api/chat/history/{session_id}
 - Returns: {messages: [...]}
@@ -423,7 +416,7 @@ POST /api/chat/feedback
 - Returns: {success: bool}
 ```
 
-**Auth API** (apps/api/routers/auth.py - FUTURE PHASE)
+**Auth API** (backend/api/auth.py - FUTURE PHASE)
 ```python
 POST /api/auth/signup
 - Body: {email, password, software_background, hardware_background}
@@ -508,7 +501,7 @@ GET /api/user/profile
 
 - Use Context7 for up-to-date documentation on:
   - Docusaurus API changes
-  - Gemini API latest features (especially gemini-2.0-flash-exp)
+  - Gemini API latest features (especially gemini-2.5-flash-exp)
   - Better-auth integration patterns
   - Qdrant Python client methods
   - FastAPI best practices
@@ -565,17 +558,17 @@ GET /api/user/profile
 ### Local Development
 ```bash
 # Backend (UV)
-cd apps/api
+cd backend
 uv sync
 uv run uvicorn main:app --reload
 
 # Frontend (Node)
-cd apps/web
+cd frontend
 npm install
 npm start
 
 # Manual Content Ingestion
-cd apps/api
+cd backend
 uv run python scripts/ingest_content.py --source-url https://zain-ul-abideen00.github.io/Physical-AI-Humanoid-Robotics-Textbook/sitemap.xml
 ```
 
@@ -648,7 +641,7 @@ uv pip list            # List installed packages
 - Qdrant collection vector size: **384**
 
 ### LLM Model
-- Gemini 2.0 Flash: `gemini-2.0-flash`
+- Gemini 2.5 Flash: `gemini-2.5-flash`
 - Streaming: Enabled by default in ChatKit
 
 ### API Keys Needed
@@ -673,4 +666,4 @@ uv pip list            # List installed packages
 - OpenAI ChatKit: https://platform.openai.com/docs/guides/chatkit
 - Antigravity: https://antigravity.google/
 
-**Version**: 2.0.0 | **Ratified**: 2025-12-07 | **Last Amended**: 2025-12-16
+**Version**: 2.1.0 | **Ratified**: 2025-12-07 | **Last Amended**: 2025-12-18
