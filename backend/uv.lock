@@ -716,6 +716,7 @@ dependencies = [
     { name = "fastapi", extra = ["standard"] },
     { name = "openai" },
     { name = "openai-agents" },
+    { name = "openai-chatkit" },
     { name = "python-dotenv" },
     { name = "qdrant-client" },
     { name = "trafilatura" },
@@ -736,6 +737,7 @@ requires-dist = [
     { name = "fastapi", extras = ["standard"], specifier = ">=0.124.4" },
     { name = "openai", specifier = ">=2.12.0" },
     { name = "openai-agents", specifier = ">=0.6.3" },
+    { name = "openai-chatkit", specifier = ">=1.4.0" },
     { name = "python-dotenv", specifier = ">=1.2.1" },
     { name = "qdrant-client", specifier = ">=1.16.2" },
     { name = "trafilatura", specifier = ">=2.0.0" },
@@ -1142,6 +1144,22 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/ac/0b/1bfc1f47708ce5500ad6b05ba8a0a789232ee6f5b9dd68938131c4674533/openai_agents-0.6.3.tar.gz", hash = "sha256:436479f201910cfc466893854b47d0f3acbf7b3bdafa95eedb590ed0d40393ef", size = 2016166 }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/3e/06/d4bf0a8403ebc7d6b0fb2b45e41d6da6996b20f1dde1debffdac1b5ccb63/openai_agents-0.6.3-py3-none-any.whl", hash = "sha256:ada8b598f4db787939a62c8a291d07cbe68dae2d635955c44a0a0300746ee84f", size = 239015 },
+]
+
+[[package]]
+name = "openai-chatkit"
+version = "1.4.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "jinja2" },
+    { name = "openai" },
+    { name = "openai-agents" },
+    { name = "pydantic" },
+    { name = "uvicorn" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/e4/44/f6dc99c00343bc4b2e3a618d0f4d90ede105c297a2dc82e1eb8e39658a52/openai_chatkit-1.4.1.tar.gz", hash = "sha256:871212dce80b4c774dbb10e2c2ee11ecd13a2c8d86e95c791110a1f6c860138d", size = 57954 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/a2/d7/2ba7198ebfa2a31b35b5253827f15290479b4377d4518b78173621467af4/openai_chatkit-1.4.1-py3-none-any.whl", hash = "sha256:b9e4d3c8ba708ad66a3ba577a04c1e154b1a27ab454ee312c90d886b7c61f34c", size = 41150 },
 ]
 
 [[package]]

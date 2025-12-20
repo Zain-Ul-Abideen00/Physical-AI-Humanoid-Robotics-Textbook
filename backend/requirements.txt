@@ -588,6 +588,9 @@ openai==2.13.0 \
 openai-agents==0.6.3 \
     --hash=sha256:436479f201910cfc466893854b47d0f3acbf7b3bdafa95eedb590ed0d40393ef \
     --hash=sha256:ada8b598f4db787939a62c8a291d07cbe68dae2d635955c44a0a0300746ee84f
+openai-chatkit==1.4.1 \
+    --hash=sha256:871212dce80b4c774dbb10e2c2ee11ecd13a2c8d86e95c791110a1f6c860138d \
+    --hash=sha256:b9e4d3c8ba708ad66a3ba577a04c1e154b1a27ab454ee312c90d886b7c61f34c
 packaging==25.0 \
     --hash=sha256:29572ef2b1f17581046b3a2227d5c611fb25ec70ca1ba8554b24b0e69331a484 \
     --hash=sha256:d443872c98d677bf60f6a1f2f8c1cb748e8fe762d2bf9d3148b5599295b0fc4f
@@ -1063,5 +1066,3 @@ websockets==15.0.1 \
     --hash=sha256:e09473f095a819042ecb2ab9465aee615bd9c2028e4ef7d933600a8401c79561 \
     --hash=sha256:ee443ef070bb3b6ed74514f5efaa37a252af57c90eb33b956d35c8e9c10a1931 \
     --hash=sha256:f7a866fbc1e97b5c617ee4116daaa09b722101d4a3c170c787450ba409f9736f
-openai-chatkit<=1.4.0
-openai-agents[litellm]>=0.6.2
