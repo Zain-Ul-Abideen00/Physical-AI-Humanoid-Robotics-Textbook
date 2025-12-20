@@ -1063,3 +1063,5 @@ websockets==15.0.1 \
     --hash=sha256:e09473f095a819042ecb2ab9465aee615bd9c2028e4ef7d933600a8401c79561 \
     --hash=sha256:ee443ef070bb3b6ed74514f5efaa37a252af57c90eb33b956d35c8e9c10a1931 \
     --hash=sha256:f7a866fbc1e97b5c617ee4116daaa09b722101d4a3c170c787450ba409f9736f
+openai-chatkit<=1.4.0
+openai-agents[litellm]>=0.6.2
