@@ -8,7 +8,7 @@ const config: Config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://zain-humanoid-robotics.vercel.app',
+  url: process.env.SITE_URL || 'https://zain-humanoid-robotics.vercel.app',
   baseUrl: '/',
 
   organizationName: 'Zain-Ul-Abideen00', // Usually your GitHub org/user name.
@@ -47,6 +47,13 @@ const config: Config = {
     ],
   ],
 
+  scripts: [
+    {
+      src: 'https://cdn.platform.openai.com/deployments/chatkit/chatkit.js',
+      async: true,
+    },
+  ],
+
   plugins: [
     [
       '@easyops-cn/docusaurus-search-local',
@@ -59,6 +66,11 @@ const config: Config = {
       },
     ],
   ],
+
+  customFields: {
+    chatKitUrl: process.env.CHATKIT_URL || 'http://localhost:8000/chatkit',
+    chatKitDomainKey: process.env.CHATKIT_DOMAIN_KEY || 'localhost',
+  },
 
   themeConfig: {
     image: 'img/docusaurus-social-card.jpg',

@@ -1,0 +1,30 @@
+openapi: 3.0.0
+info:
+  title: ChatKit API
+  version: 1.0.0
+paths:
+  /chatkit:
+    post:
+      summary: Handle ChatKit interactions
+      description: |
+        Primary endpoint for ChatKit frontend to communicate with the backend.
+        Handles message processing, RAG retrieval, and streaming responses.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                thread_id:
+                  type: string
+                action:
+                  type: object
+                  description: Action payload from ChatKit
+      responses:
+        '200':
+          description: Streaming response with Server-Sent Events (SSE)
+          content:
+            text/event-stream:
+              schema:
+                type: string
+                description: Stream of ChatKit events (ThreadItemAdded, etc.)
