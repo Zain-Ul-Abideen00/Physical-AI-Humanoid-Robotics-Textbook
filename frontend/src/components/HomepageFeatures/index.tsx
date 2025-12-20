@@ -9,7 +9,7 @@ export default function HomepageFeatures(): JSX.Element {
     <section className={styles.features}>
       <div className="container">
         <h2 className="text--center margin-bottom--md">Curriculum Modules</h2>
-        <div className="row">
+        <div className={styles.featureGrid}>
           {FeatureList.map((props, idx) => (
             <FeatureCard key={idx} {...props} />
           ))}

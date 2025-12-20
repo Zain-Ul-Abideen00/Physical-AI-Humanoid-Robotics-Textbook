@@ -1,63 +1,121 @@
-/* --- FEATURE CARDS (unchanged) --- */
+/* --- FEATURE CARDS (Bento Grid) --- */
 
 .features {
-  display: flex;
-  align-items: center;
-  padding: 2rem 0;
+  padding: 6rem 0;
   width: 100%;
+  /* Cyber Grid Background */
+  background-color: #050505;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  position: relative;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+
+.features::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  background: linear-gradient(180deg, #000000 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+  position: relative;
+  z-index: 2;
 }
 
 .featureSvg {
-  height: 50px;
-  width: 50px;
-  color: var(--ifm-color-primary);
+  height: 64px;
+  width: 64px;
+  color: var(--aurora-color-1);
+  margin-bottom: 1.5rem;
+  filter: drop-shadow(0 0 10px rgba(203, 125, 16, 0.4));
+  transition: transform 0.3s ease;
 }
 
 .featureLink {
   text-decoration: none;
-  color: inherit;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  display: block;
+  color: #fff !important;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   height: 100%;
-  padding: 1rem;
-  border-radius: var(--ifm-global-radius);
-  border: 1px solid transparent;
+  padding: 3rem 2rem;
+  /* Cyber Card Style */
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
 }
 
 .featureLink:hover {
   text-decoration: none;
-  color: inherit;
-  transform: translateY(-6px);
-  border-color: var(--ifm-color-primary);
-  background: var(--ifm-background-surface-color);
-  box-shadow: 0 6px 14px rgba(0,0,0,0.12);
+  background: rgba(30, 30, 30, 0.8);
+  border-color: var(--aurora-color-1);
+  box-shadow: 0 0 30px rgba(203, 125, 16, 0.15);
+  transform: translateY(-8px);
 }
 
-/* --- HARDWARE CARDS (enhanced) --- */
+.featureLink:hover .featureSvg {
+  transform: scale(1.1) rotate(-5deg);
+  filter: drop-shadow(0 0 20px rgba(203, 125, 16, 0.8));
+}
+
+.featureLink h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  font-family: 'Inter', sans-serif;
+  color: #ffffff;
+}
+
+.featureLink p {
+  opacity: 0.8;
+  line-height: 1.6;
+  color: #cccccc;
+}
+
+/* --- HARDWARE CARDS --- */
 
 .hardwareCard {
   height: 100%;
-  border: 1px solid var(--ifm-color-emphasis-300);
-  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
   overflow: hidden;
-  background: var(--ifm-background-surface-color);
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-  backdrop-filter: blur(6px);
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(12px);
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  flex-direction: column;
 }
 
 .hardwareCard:hover {
-  transform: translateY(-6px);
-  border-color: var(--ifm-color-primary);
-  box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+  transform: translateY(-8px);
+  border-color: var(--aurora-color-1);
+  box-shadow: 0 0 40px rgba(203, 125, 16, 0.2);
+  background: rgba(30, 30, 30, 0.9);
 }
 
-/* Image container with soft gradient overlay */
 .hardwareImageContainer {
   width: 100%;
-  height: 230px;
+  height: 240px;
   position: relative;
   overflow: hidden;
-  border-radius: 14px 14px 0 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 .hardwareImageContainer::after {
@@ -66,53 +124,55 @@
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(0,0,0,0.0),
-    rgba(0,0,0,0.35)
+    transparent 0%,
+    rgba(0,0,0,0.8) 100%
   );
   pointer-events: none;
-  transition: opacity 0.25s ease;
-}
-
-.hardwareCard:hover .hardwareImageContainer::after {
-  opacity: 0.15;
 }
 
 .hardwareImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.35s ease;
+  transition: transform 0.5s ease;
+  filter: grayscale(40%) contrast(110%);
 }
 
 .hardwareCard:hover .hardwareImage {
-  transform: scale(1.08);
+  transform: scale(1.1);
+  filter: grayscale(0%) contrast(120%);
 }
 
-/* Price badge styled like a premium tag */
 .costBadge {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  background: var(--ifm-color-primary);
-  color: white;
+  top: 15px;
+  right: 15px;
+  background: rgba(0,0,0,0.6); /* Darker backdrop */
+  border: 1px solid var(--aurora-color-1);
+  color: var(--aurora-color-1);
   padding: 6px 12px;
-  border-radius: 16px;
-  font-weight: 600;
+  border-radius: 8px; /* More angular/cyber */
+  font-weight: 700;
   font-size: 0.85rem;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
-  backdrop-filter: blur(3px);
+  font-family: 'JetBrains Mono', monospace;
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+  backdrop-filter: blur(8px);
+  z-index: 10;
 }
 
-/* Better spacing for content */
 .hardwareCard h3 {
-  margin-top: 0.8rem;
-  margin-bottom: 0.4rem;
-  font-size: 1.1rem;
-  font-weight: 700;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #fff;
+  padding: 0 1.5rem;
 }
 
 .hardwareCard p {
-  margin: 0.4rem 0 0.8rem 0;
-  opacity: 0.9;
-  line-height: 1.5;
+  margin: 0.5rem 0 1.5rem 0;
+  opacity: 0.8;
+  line-height: 1.6;
+  color: #ccc;
+  padding: 0 1.5rem;
 }

@@ -1,3 +1,66 @@
 .whySection {
-  padding: 4rem 0;
+  padding: 8rem 0;
+  background-color: #030303; /* Deepest black */
+  position: relative;
+  /* Diagonal Tech Lines */
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.01) 0px,
+    rgba(255, 255, 255, 0.01) 1px,
+    transparent 1px,
+    transparent 20px
+  );
+  border-top: 1px solid rgba(255,255,255,0.05);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.whyCard {
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(12px);
+  padding: 2.5rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.08); /* Cyber border */
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.whyCard:hover {
+  transform: translateY(-8px);
+  background: rgba(40, 40, 40, 0.8);
+  border-color: var(--aurora-color-3); /* Green for "Why" / Growth */
+  box-shadow: 0 0 30px rgba(46, 133, 85, 0.15);
+}
+
+/* Green top accent for Why cards */
+.whyCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--aurora-color-3), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+
+.whyCard:hover::before {
+  transform: scaleX(1);
+}
+
+.whyCard h3 {
+  color: #fff;
+  margin-bottom: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.4rem;
+}
+
+.whyCard p {
+  color: #a0a0a0;
+  line-height: 1.7;
+  font-size: 1rem;
 }

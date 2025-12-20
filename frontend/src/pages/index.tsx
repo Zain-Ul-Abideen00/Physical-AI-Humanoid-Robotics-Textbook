@@ -1,4 +1,5 @@
 import React from 'react';
+import clsx from 'clsx';
 import Layout from '@theme/Layout';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Hero from '../components/Hero/Hero';
@@ -16,7 +17,7 @@ function WhySection() {
         <div className="row">
           {WhyPhysicalAI.map((item, idx) => (
             <div key={idx} className="col col--4">
-              <div className="text--center padding--md">
+              <div className={clsx(styles.whyCard, 'text--center')}>
                 <h3>{item.title}</h3>
                 <p>{item.description}</p>
               </div>

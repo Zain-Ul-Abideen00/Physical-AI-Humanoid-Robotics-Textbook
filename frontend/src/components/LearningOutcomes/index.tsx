@@ -6,10 +6,8 @@ import { LearningOutcomesList } from '../../data/homepage';
 function OutcomeItem({title, description, Icon}: any) {
   return (
     <div className={clsx('col col--3')}>
-      <div className="text--center">
+      <div className={clsx(styles.outcomeCard, 'text--center')}>
         <Icon className={styles.outcomeIcon} />
-      </div>
-      <div className="text--center padding-horiz--md">
         <h3>{title}</h3>
         <p>{description}</p>
       </div>
