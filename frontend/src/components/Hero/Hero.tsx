@@ -5,19 +5,37 @@ import styles from './styles.module.css';
 
 export default function Hero() {
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <h1 className="hero__title">Master Physical AI & Humanoid Robotics</h1>
-        <p className="hero__subtitle">
-          A comprehensive, open-source curriculum to build the next generation of intelligent robots. 
-          From ROS 2 fundamentals to VLA models on edge hardware.
-        </p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/modules/module-1-ros2/intro">
-            Start Learning
-          </Link>
+    <header className="aurora-bg" style={{ padding: '10rem 0 8rem 0' }}>
+      {/* Grid Overlay for Tech Feel */}
+      <div className="tech-grid-overlay" />
+
+      <div className="container hero-content-layer">
+        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
+
+          <h1 className="hero-title-modern">
+            The Future is <br />
+            <span>Physical AI</span>
+          </h1>
+
+          <p className="hero-subtitle-modern">
+            From Code to Reality. The Open Source Curriculum for <br/>
+            <strong>Humanoid Robotics</strong> and <strong>VLA Models</strong>.
+          </p>
+
+          <div className={styles.buttons} style={{ gap: '2rem' }}>
+            <Link
+              className="cyber-button"
+              to="/docs/modules/module-1-ros2/intro">
+              Start Learning
+            </Link>
+
+            <Link
+              className="secondary-button-glass"
+              to="https://github.com/your-repo">
+              <span style={{ marginRight: '10px' }}>★</span> Star on GitHub
+            </Link>
+          </div>
+
         </div>
       </div>
     </header>

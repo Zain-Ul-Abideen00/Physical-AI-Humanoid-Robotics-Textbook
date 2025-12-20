@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Glowing Hexagon Background -->
+  <path d="M60 10 L103.3 35 V85 L60 110 L16.7 85 V35 Z" fill="#000000" stroke="#cb7d10" stroke-width="4" stroke-linejoin="round">
+    <animate attributeName="stroke-opacity" values="1;0.5;1" duration="3s" repeatCount="indefinite" />
+  </path>
+
+  <!-- Cyber Brain Circuitry -->
+  <path d="M60 30 V50 M60 50 L45 65 M60 50 L75 65" stroke="#cb7d10" stroke-width="3" stroke-linecap="round" />
+  <circle cx="60" cy="50" r="4" fill="#cb7d10" />
+
+  <!-- Eye Visor -->
+  <path d="M35 55 H85" stroke="#8a2be2" stroke-width="3" stroke-linecap="round">
+    <animate attributeName="stroke-opacity" values="0.6;1;0.6" duration="2s" repeatCount="indefinite" />
+  </path>
+
+  <!-- Data Nodes -->
+  <circle cx="45" cy="65" r="3" fill="#ffffff" />
+  <circle cx="75" cy="65" r="3" fill="#ffffff" />
+
+  <!-- Bottom connection -->
+  <path d="M50 90 L70 90" stroke="#2e8555" stroke-width="3" />
+</svg>

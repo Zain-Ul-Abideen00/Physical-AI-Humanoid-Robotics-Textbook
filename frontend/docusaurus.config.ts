@@ -76,14 +76,14 @@ const config: Config = {
     image: 'img/docusaurus-social-card.jpg',
     colorMode: {
       defaultMode: 'dark',
-      disableSwitch: false,
-      respectPrefersColorScheme: true,
+      disableSwitch: true,
+      respectPrefersColorScheme: false,
     },
     navbar: {
       title: 'Robotics Textbook',
       logo: {
         alt: 'Robotics Textbook Logo',
-        src: 'img/logo.svg',
+        src: 'img/cyber-logo.svg',
       },
       items: [
         {

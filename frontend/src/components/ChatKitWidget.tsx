@@ -24,14 +24,14 @@ const ChatKitWidget: React.FC = () => {
     },
     initialThread: initialThread ?? undefined,
     theme: {
-      colorScheme: 'light',
+      colorScheme: 'dark',
       radius: 'pill',
       density: 'spacious',
       color: {
         grayscale: {
-          hue: 36,
+          hue: 29,
           tint: 9,
-          shade: 3
+          shade: 4
         },
         accent: {
           primary: '#cb7d10',
@@ -55,11 +55,11 @@ const ChatKitWidget: React.FC = () => {
       }
     },
     startScreen: {
-      greeting: 'Welcome to Humanoid Robotics Textbook',
+      greeting: 'Protocol Initiated. How can I assist?',
       prompts: [
         {
-          label: 'What is ChatKit?',
-          prompt: 'What is ChatKit?'
+          label: 'System Status',
+          prompt: 'What is the status of the ChatKit system?'
         },
         {
           label: 'Components',
@@ -72,7 +72,7 @@ const ChatKitWidget: React.FC = () => {
       ],
     },
     composer: {
-      placeholder: 'Ask me anything about textbook',
+      placeholder: 'Enter Command...',
       attachments: {
         enabled: false
       },
@@ -100,21 +100,30 @@ const ChatKitWidget: React.FC = () => {
             width: '60px',
             height: '60px',
             borderRadius: '50%',
-            background: '#cb7d10',
-            border: 'none',
+            background: 'rgba(203, 125, 16, 0.2)',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid #cb7d10',
             cursor: 'pointer',
-            boxShadow: '0 4px 20px rgba(203, 125, 16, 0.4)',
+            boxShadow: '0 0 20px rgba(203, 125, 16, 0.4)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            transition: 'transform 0.2s',
+            transition: 'all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1)',
             zIndex: 100
           }}
-          onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.1)'}
-          onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+          onMouseOver={(e) => {
+            e.currentTarget.style.transform = 'scale(1.1)';
+            e.currentTarget.style.boxShadow = '0 0 30px rgba(203, 125, 16, 0.8)';
+            e.currentTarget.style.background = 'rgba(203, 125, 16, 0.4)';
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.transform = 'scale(1)';
+            e.currentTarget.style.boxShadow = '0 0 20px rgba(203, 125, 16, 0.4)';
+            e.currentTarget.style.background = 'rgba(203, 125, 16, 0.2)';
+          }}
           aria-label="Open Chat"
         >
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#cb7d10" strokeWidth="2" style={{ filter: 'drop-shadow(0 0 5px #cb7d10)' }}>
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
           </svg>
         </button>
@@ -132,7 +141,8 @@ const ChatKitWidget: React.FC = () => {
               left: 0,
               right: 0,
               bottom: 0,
-              background: 'rgba(0, 0, 0, 0.2)',
+              background: 'rgba(0, 0, 0, 0.4)',
+              backdropFilter: 'blur(2px)',
               zIndex: 999,
               pointerEvents: 'auto'
             }}
@@ -147,18 +157,18 @@ const ChatKitWidget: React.FC = () => {
             height: '600px',
             maxWidth: 'calc(100vw - 4rem)',
             maxHeight: 'calc(100vh - 4rem)',
-            background: '#ffffff',
+            background: 'rgba(15, 15, 15, 0.85)',
+            backdropFilter: 'blur(20px)',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
             borderRadius: '1rem',
-            boxShadow: '0 10px 50px rgba(0, 0, 0, 0.2)',
+            boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(203, 125, 16, 0.1)',
             display: 'flex',
             flexDirection: 'column',
             overflow: 'hidden',
             zIndex: 1000,
-            animation: 'popupIn 0.25s ease-out',
+            animation: 'popupIn 0.25s cubic-bezier(0.25, 0.8, 0.25, 1)',
             fontFamily: "'JetBrains Mono', monospace"
           }}>
-            {/* Header Removed as per user request */}
-
             {/* Chat Content */}
             <div style={{ flex: 1, overflow: 'hidden' }}>
               <ChatKit control={control} className="chatkit-full" />
@@ -169,11 +179,13 @@ const ChatKitWidget: React.FC = () => {
             @keyframes popupIn {
               from {
                 opacity: 0;
-                transform: scale(0.9) translateY(20px);
+                transform: scale(0.95) translateY(20px);
+                filter: blur(10px);
               }
               to {
                 opacity: 1;
                 transform: scale(1) translateY(0);
+                filter: blur(0px);
               }
             }
           `}</style>
