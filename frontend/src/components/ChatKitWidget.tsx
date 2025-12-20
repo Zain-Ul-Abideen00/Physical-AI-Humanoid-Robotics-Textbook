@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { ChatKit, useChatKit } from '@openai/chatkit-react';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 const ChatKitWidget: React.FC = () => {
+  const { siteConfig } = useDocusaurusContext();
+  const { chatKitUrl, chatKitDomainKey } = siteConfig.customFields as { chatKitUrl: string; chatKitDomainKey: string };
+
   const [initialThread, setInitialThread] = useState<string | undefined>(undefined);
   const [isReady, setIsReady] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -15,8 +19,8 @@ const ChatKitWidget: React.FC = () => {
 
   const { control } = useChatKit({
     api: {
-      url: 'https://humanoid-robotics.up.railway.app/chatkit',
-      domainKey: 'zain-humanoid-robotics.vercel.app',
+      url: chatKitUrl,
+      domainKey: chatKitDomainKey,
     },
     initialThread: initialThread ?? undefined,
     theme: {
