@@ -9,14 +9,11 @@ app = FastAPI(title="Humanoid Robotics RAG API", version="0.1.0")
 
 from fastapi.middleware.cors import CORSMiddleware
 
-import os
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000", # Always allow localhost for dev
-        os.getenv("FRONTEND_URL"), # Allow configured frontend
-        os.getenv("FRONTEND_PROD_URL") # Allow production frontend
+        "https://zain-humanoid-robotics.vercel.app", # Allow production frontend
     ],
     allow_credentials=True,
     allow_methods=["*"],
