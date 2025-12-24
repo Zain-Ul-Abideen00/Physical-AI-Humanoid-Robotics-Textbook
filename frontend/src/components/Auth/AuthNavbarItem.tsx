@@ -1,6 +1,6 @@
 import React, { JSX } from 'react';
 import Link from '@docusaurus/Link';
-import { useSession, signOut } from '../../lib/auth-client.ts';
+import { useSession, signOut } from '../../lib/auth-client';
 
 export default function AuthNavbarItem(props: any): JSX.Element {
     const { data: session, isPending } = useSession();
