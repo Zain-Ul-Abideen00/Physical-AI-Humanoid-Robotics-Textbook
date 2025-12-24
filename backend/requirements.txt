@@ -10,3 +10,4 @@ qdrant-client>=1.16.2
 trafilatura>=2.0.0
 typer>=0.20.0
 uv>=0.9.17
+pyjwt[crypto]>=2.10.1
