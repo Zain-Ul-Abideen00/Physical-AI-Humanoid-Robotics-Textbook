@@ -11,13 +11,15 @@ from chatkit.server import ChatKitServer, StreamingResult
 from chatkit.types import ThreadMetadata, ThreadItem, AssistantMessageItem, UserMessageItem
 from chatkit.agents import AgentContext, ThreadItemConverter, stream_agent_response
 
-from services.chatkit_store import MemoryStore
+# from services.chatkit_store import MemoryStore # Deprecated
+from services.chatkit_postgres_store import PostgresStore # New persistent store
 from services.query.retrieval import QueryService
 
 router = APIRouter()
 
 # Initialize Store
-store = MemoryStore()
+# PostgresStore relies on the global Database connection initialized in main.py lifespan
+store = PostgresStore()
 
 # Initialize Model
 gemini_model = LitellmModel(
@@ -25,8 +27,10 @@ gemini_model = LitellmModel(
     api_key=os.getenv("GEMINI_API_KEY"),
 )
 
+from api.deps import get_optional_current_user, UserSession
+
 class RAGChatKitServer(ChatKitServer[dict]):
-    def __init__(self, data_store: MemoryStore):
+    def __init__(self, data_store: PostgresStore): # Updated type hint
         super().__init__(data_store)
         self.converter = ThreadItemConverter()
 
@@ -37,7 +41,7 @@ class RAGChatKitServer(ChatKitServer[dict]):
 
             prompt = (
                 f"Generate a very short, summarized title (maximum 5 words) for a conversation "
-                f"that starts with this message:\n\n{user_message}\n\n"
+                f"that starts with this message:\\n\\n{user_message}\\n\\n"
                 "Do not use quotes or anything else. Just the title."
             )
 
@@ -128,7 +132,7 @@ class RAGChatKitServer(ChatKitServer[dict]):
 
         context_text = ""
         for i, res in enumerate(search_response.results):
-             context_text += f"SOURCE [{i+1}] ({res.page_title}):\n{res.chunk_text}\n\n"
+             context_text += f"SOURCE [{i+1}] ({res.page_title}):\\n{res.chunk_text}\\n\\n"
 
         # 3. Create Agent with Context
         instructions = f"""
@@ -209,17 +213,26 @@ class RAGChatKitServer(ChatKitServer[dict]):
             except Exception as e:
                 print(f"Error awaiting title task: {e}")
 
-
 # Instantiate Server
 server = RAGChatKitServer(store)
 
 @router.post("/chatkit")
-async def chatkit_endpoint(request: Request, background_tasks: BackgroundTasks):
+async def chatkit_endpoint(
+    request: Request,
+    background_tasks: BackgroundTasks,
+    user: UserSession | None = Depends(get_optional_current_user)
+):
     # Parse body
     try:
         body = await request.body()
+
+        context = {
+            "background_tasks": background_tasks,
+            "user_id": user.id if user else None
+        }
+
         # Pass background_tasks in context so respond() can use it
-        result = await server.process(body, {"background_tasks": background_tasks})
+        result = await server.process(body, context)
 
         if isinstance(result, StreamingResult):
             return StreamingResponse(result, media_type="text/event-stream")

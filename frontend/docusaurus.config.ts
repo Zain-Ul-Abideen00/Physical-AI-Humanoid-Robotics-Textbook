@@ -63,6 +63,7 @@ const config: Config = {
         indexDocs: true,
         indexBlog: false,
         indexPages: false,
+        searchBarShortcut: false,
       },
     ],
   ],
@@ -70,6 +71,7 @@ const config: Config = {
   customFields: {
     chatKitUrl: process.env.CHATKIT_URL || 'http://localhost:8000/chatkit',
     chatKitDomainKey: process.env.CHATKIT_DOMAIN_KEY || 'localhost',
+    betterAuthUrl: process.env.BETTER_AUTH_URL || 'http://localhost:3001',
   },
 
   themeConfig: {
@@ -107,6 +109,10 @@ const config: Config = {
         {
           href: 'https://github.com/Zain-Ul-Abideen00/Physical-AI-Humanoid-Robotics-Textbook',
           label: 'GitHub',
+          position: 'right',
+        },
+        {
+          type: 'custom-auth',
           position: 'right',
         },
       ],

@@ -32,11 +32,17 @@ class MemoryStore(Store[dict]):
         state = self._threads.get(thread_id)
         if state:
             return state.thread.model_copy(deep=True)
+
         # Create new thread
+        # Capture the user_id from context so we know who owns this thread
+        user_id = context.get("user_id")
+
         thread = ThreadMetadata(
             id=thread_id,
             created_at=datetime.now(timezone.utc),
-            metadata={}
+            metadata={
+                "user_id": user_id
+            }
         )
         self._threads[thread_id] = ThreadState(thread=thread.model_copy(deep=True), items=[])
         return thread
@@ -44,8 +50,19 @@ class MemoryStore(Store[dict]):
     async def save_thread(self, thread: ThreadMetadata, context: dict) -> None:
         state = self._threads.get(thread.id)
         if state:
+            # Preserve existing metadata like user_id if not present in update
+            # (Though usually the full object is passed back)
+            # Ensure we don't accidentally wipe user_id if the client didn't send it back
+            if "user_id" in state.thread.metadata and "user_id" not in thread.metadata:
+                thread.metadata["user_id"] = state.thread.metadata["user_id"]
+
             state.thread = thread.model_copy(deep=True)
         else:
+            # Should have been created by load_thread first, but just in case:
+            user_id = context.get("user_id")
+            if "user_id" not in thread.metadata:
+                 thread.metadata["user_id"] = user_id
+
             self._threads[thread.id] = ThreadState(
                 thread=thread.model_copy(deep=True),
                 items=[]
@@ -111,8 +128,25 @@ class MemoryStore(Store[dict]):
             state.items = [i for i in state.items if i.id != item_id]
 
     async def load_threads(self, limit: int, after: str | None, order: str, context: dict) -> Page[ThreadMetadata]:
-        threads = [s.thread.model_copy(deep=True) for s in self._threads.values()]
-        return Page(data=threads[-limit:], has_more=False)
+        user_id = context.get("user_id")
+
+        # Filter threads by user_id
+        # Anonymous users (user_id=None) only see threads that are also None (anonymous)
+        # OR we could enforce that anonymous users see NOTHING in the list view to avoid sharing.
+        # Strict approach: Match IDs.
+
+        matching_threads = []
+        for s in self._threads.values():
+            t = s.thread
+            owner_id = t.metadata.get("user_id")
+            if owner_id == user_id:
+                matching_threads.append(t.model_copy(deep=True))
+
+        # Sort desc by default usually? passed 'order' param
+        # Official implementation usually expects sorted results
+        # We can implement simple sorting here if needed, but for now just returning matching list
+
+        return Page(data=matching_threads[-limit:], has_more=False)
 
     async def delete_thread(self, thread_id: str, context: dict) -> None:
         self._threads.pop(thread_id, None)
