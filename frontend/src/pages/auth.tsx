@@ -14,6 +14,20 @@ export default function AuthPage(): JSX.Element {
 
     // Effect to check if user is logged in but missing profile, or just logged in
     React.useEffect(() => {
+        const checkSession = async () => {
+             console.log("[AuthPage] Manually checking session...");
+             try {
+                 const sessionData = await authClient.getSession();
+                 console.log("[AuthPage] Manual getSession result:", sessionData);
+                 if (sessionData.error) {
+                     console.error("[AuthPage] Manual getSession error:", sessionData.error);
+                 }
+             } catch (err) {
+                 console.error("[AuthPage] Manual getSession exception:", err);
+             }
+        };
+        checkSession();
+
         if (!isPending && session) {
             // Need a way to check if profile exists.
             // For now, let's assume if they are here manually (/auth), let them edit profile or see status.
