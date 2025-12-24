@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { signIn } from '../../lib/auth-client';
+import { signIn } from '../../lib/auth-client-factory';
 
 import styles from '../../css/Auth.module.css';
 

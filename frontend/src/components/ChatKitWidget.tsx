@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ChatKit, useChatKit } from '@openai/chatkit-react';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import { useSession } from '../lib/auth-client';
+import { useSession } from '../lib/auth-client-factory';
 
 // Inner component that handles a specific chat session
 // By keying this component, we ensure useChatKit is completely reset when the user changes
