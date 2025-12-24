@@ -32,12 +32,20 @@ async def get_current_user_token(
     # 1. Try Bearer Token
     if token_auth:
         token = token_auth.credentials
+        print(f"DEBUG: Found Bearer token: {token[:10]}...", flush=True)
 
     # 2. Try Cookie
     if not token:
         token = request.cookies.get("better-auth.session_token")
+        if token:
+           print(f"DEBUG: Found Cookie token: {token[:10]}...", flush=True)
+        else:
+           print("DEBUG: No token in cookie either.", flush=True)
 
     if not token:
+        # Debug headers to see what's actually arriving
+        print(f"DEBUG: Headers received: {request.headers}", flush=True)
+        print(f"DEBUG: Cookies received: {request.cookies}", flush=True)
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Missing authentication credentials (Header or Cookie)"
