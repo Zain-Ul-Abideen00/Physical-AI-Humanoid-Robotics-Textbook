@@ -10,5 +10,5 @@ const pool = new Pool({
 export const auth = betterAuth({
   database: pool,
   emailAndPassword: { enabled: true },
-  trustedOrigins: process.env.TRUSTED_ORIGINS ? process.env.TRUSTED_ORIGINS.split(',') : ["http://localhost:3000"]
+  trustedOrigins: process.env.TRUSTED_ORIGINS ? process.env.TRUSTED_ORIGINS.split(',') : ["https:zain-humanoid-robotics.vercel.app"]
 })
