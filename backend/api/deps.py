@@ -32,20 +32,12 @@ async def get_current_user_token(
     # 1. Try Bearer Token
     if token_auth:
         token = token_auth.credentials
-        print(f"DEBUG: Found Bearer token: {token[:10]}...", flush=True)
 
     # 2. Try Cookie
     if not token:
         token = request.cookies.get("better-auth.session_token")
-        if token:
-           print(f"DEBUG: Found Cookie token: {token[:10]}...", flush=True)
-        else:
-           print("DEBUG: No token in cookie either.", flush=True)
 
     if not token:
-        # Debug headers to see what's actually arriving
-        print(f"DEBUG: Headers received: {request.headers}", flush=True)
-        print(f"DEBUG: Cookies received: {request.cookies}", flush=True)
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Missing authentication credentials (Header or Cookie)"
@@ -61,17 +53,12 @@ async def get_current_user(
     """
     # Query public.session to find the session
     # Note: 'session' is a keyword, usually better-auth uses "session"
-    print(f"DEBUG: Validating token: {token[:10]}...")
     session_row = await Database.fetchrow(
         'SELECT "userId", "expiresAt" FROM public."session" WHERE token = $1',
         token
     )
 
     if not session_row:
-        print(f"DEBUG: Session lookup failed for token {token[:10]}...")
-        # Check if table exists or is empty (optional, but helpful once)
-        # count = await Database.fetchval('SELECT count(*) FROM public."session"')
-        # print(f"DEBUG: Total sessions in DB: {count}")
         raise HTTPException(status_code=401, detail="Invalid session token")
 
     expires_at = session_row['expiresAt']
