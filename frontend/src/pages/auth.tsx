@@ -14,20 +14,6 @@ export default function AuthPage(): JSX.Element {
 
     // Effect to check if user is logged in but missing profile, or just logged in
     React.useEffect(() => {
-        const checkSession = async () => {
-             console.log("[AuthPage] Manually checking session...");
-             try {
-                 const sessionData = await authClient.getSession();
-                 console.log("[AuthPage] Manual getSession result:", sessionData);
-                 if (sessionData.error) {
-                     console.error("[AuthPage] Manual getSession error:", sessionData.error);
-                 }
-             } catch (err) {
-                 console.error("[AuthPage] Manual getSession exception:", err);
-             }
-        };
-        checkSession();
-
         if (!isPending && session) {
             // Need a way to check if profile exists.
             // For now, let's assume if they are here manually (/auth), let them edit profile or see status.
@@ -42,17 +28,11 @@ export default function AuthPage(): JSX.Element {
             const apiBase = chatKitUrl.replace('/chatkit', '');
             const token = session?.session?.token;
 
-            console.log("[AuthPage] Session object:", session);
-            console.log("[AuthPage] Token found:", token ? "Yes (" + token.substring(0, 10) + "...)" : "No");
-
             const headers: Record<string, string> = {
                 'Content-Type': 'application/json',
             };
             if (token) {
                 headers['Authorization'] = `Bearer ${token}`;
-                console.log("[AuthPage] Authorization header set.");
-            } else {
-                console.warn("[AuthPage] No token available for Authorization header!");
             }
 
             const response = await fetch(`${apiBase}/api/user/profile`, {
