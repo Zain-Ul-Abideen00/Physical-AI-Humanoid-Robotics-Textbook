@@ -1,0 +1,23 @@
+{
+    "name": "auth-service",
+    "type": "module",
+    "scripts": {
+        "dev": "tsx watch src/index.ts",
+        "start": "tsx src/index.ts",
+        "db:migrate": "better-auth migrate"
+    },
+    "dependencies": {
+        "better-auth": "^1.0.0",
+        "hono": "^4.6.12",
+        "@hono/node-server": "^1.13.7",
+        "pg": "^8.13.1",
+        "dotenv": "^16.4.5"
+    },
+    "devDependencies": {
+        "@better-auth/cli": "^1.0.0",
+        "tsx": "^4.19.2",
+        "typescript": "^5.7.2",
+        "@types/node": "^22.10.1",
+        "@types/pg": "^8.11.10"
+    }
+}

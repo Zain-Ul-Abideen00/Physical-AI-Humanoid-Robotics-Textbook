@@ -1,0 +1,153 @@
+openapi: 3.0.3
+info:
+  title: User Profile & Auth Integration API
+  version: 1.0.0
+paths:
+  /api/user/profile:
+    get:
+      summary: Get authenticated user's profile
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: User Profile data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileResponse'
+        '404':
+          description: Profile not found
+    post:
+      summary: Create or Update user profile
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserProfileRequest'
+      responses:
+        '200':
+          description: Profile saved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserProfileResponse'
+
+  /api/chatkit/merge:
+    post:
+      summary: Merge anonymous chat thread into authenticated user account
+      description: CALL IMMEDIATELY AFTER LOGIN/SIGNUP. Associates the anonymous ChatKit thread with the new user.
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                thread_id:
+                  type: string
+                  description: The ChatKit thread ID stored in localStorage ('chatkit_thread_id')
+      responses:
+        '200':
+          description: Session merged successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  merged_count:
+                    type: integer
+
+  /chatkit:
+    post:
+      summary: ChatKit RAG Endpoint (Existing)
+      description: Main ChatKit conversation endpoint. Will be improved to accept Auth context.
+      security:
+        - bearerAuth: []
+        - {} # Support anonymous access
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Streaming chat response
+          content:
+            text/event-stream:
+              schema:
+                type: string
+                format: binary
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    UserProfileRequest:
+      type: object
+      required:
+        - software_context
+        - hardware_context
+      properties:
+        software_context:
+          $ref: '#/components/schemas/SoftwareContext'
+        hardware_context:
+          $ref: '#/components/schemas/HardwareContext'
+
+    UserProfileResponse:
+      allOf:
+        - $ref: '#/components/schemas/UserProfileRequest'
+        - type: object
+          properties:
+            id:
+              type: string
+              format: uuid
+            user_id:
+              type: string
+            created_at:
+              type: string
+              format: date-time
+            updated_at:
+              type: string
+              format: date-time
+
+    SoftwareContext:
+      type: object
+      properties:
+        languages:
+          type: array
+          items:
+            type: string
+        experience_level:
+          type: string
+          enum: [Beginner, Intermediate, Advanced]
+        preferred_tools:
+          type: array
+          items:
+            type: string
+
+    HardwareContext:
+      type: object
+      properties:
+        devices:
+          type: array
+          items:
+            type: string
+        specifications:
+          type: object
+          additionalProperties: true
+        constraints:
+          type: array
+          items:
+            type: string
