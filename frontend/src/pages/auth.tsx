@@ -28,11 +28,17 @@ export default function AuthPage(): JSX.Element {
             const apiBase = chatKitUrl.replace('/chatkit', '');
             const token = session?.session?.token;
 
+            console.log("[AuthPage] Session object:", session);
+            console.log("[AuthPage] Token found:", token ? "Yes (" + token.substring(0, 10) + "...)" : "No");
+
             const headers: Record<string, string> = {
                 'Content-Type': 'application/json',
             };
             if (token) {
                 headers['Authorization'] = `Bearer ${token}`;
+                console.log("[AuthPage] Authorization header set.");
+            } else {
+                console.warn("[AuthPage] No token available for Authorization header!");
             }
 
             const response = await fetch(`${apiBase}/api/user/profile`, {
