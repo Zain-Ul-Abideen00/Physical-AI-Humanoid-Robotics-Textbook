@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styles from '../../css/Auth.module.css';
 import { RoboticsLicenseCard } from './RoboticsLicenseCard';
-import { authClient } from '../../lib/auth-client';
+import { authClient } from '../../lib/auth-client-factory';
 
 // Options based on Robotics/AI domain
 const LANGUAGES = ['Python', 'C++', 'Rust', 'MATLAB', 'JavaScript/TypeScript'];

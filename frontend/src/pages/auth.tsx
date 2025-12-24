@@ -3,7 +3,7 @@ import Layout from '@theme/Layout';
 import { SignUpForm } from '../components/Auth/SignUpForm';
 import { SignInForm } from '../components/Auth/SignInForm';
 import { BackgroundQuestionnaire } from '../components/Auth/BackgroundQuestionnaire';
-import { authClient, useSession } from '../lib/auth-client';
+import { authClient, useSession } from '../lib/auth-client-factory';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from '../css/Auth.module.css';
 
